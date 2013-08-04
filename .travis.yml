@@ -1,2 +1,3 @@
 language: c
+install: cp .travis/toolsapi.properties ~/toolsapi.properties
 script: "make test"
