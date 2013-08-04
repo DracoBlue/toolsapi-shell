@@ -11,6 +11,11 @@ This is the official bash client implementation of [toolsapi.com](http://toolsap
 * Default unix/linux tools: grep, cat, cut, tail and bash
 * curl command line tool
 
+## No-Installation installation
+
+    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi > toolsapi
+    $ chmod +x toolsapi
+
 ## Installation Git Version
 
 Clone the repository and enter the directory

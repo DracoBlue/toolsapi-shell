@@ -87,5 +87,4 @@ do
     POS=`expr ${POS} + 1`
 done
 
-echo $FINAL_COMMAND >&2
 eval $FINAL_COMMAND
