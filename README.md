@@ -4,7 +4,7 @@
 * Date: not-yet-released
 * Build Status: [![Build Status](https://secure.travis-ci.org/DracoBlue/toolsapi-shell.png?branch=master)](http://travis-ci.org/DracoBlue/toolsapi-shell)
 
-This is the official bash client implementation of [toolsapi.com](http://toolsapi.com). It implements the latest [toolsapi http protocol](http://toolsapi.local/toolsapi-http-protocol).
+This is the official bash client implementation of [toolsapi.com](http://toolsapi.com). It implements the latest [toolsapi http protocol](http://toolsapi.com/toolsapi-http-protocol).
 
 ## Requirements
 
@@ -45,7 +45,7 @@ Use an input file (prefix with `toolsapi:inputfile=`) on the remote machine (exe
     
 ## Status Quo of toolsapi-shell
 
-The client is not yet 100% compliant to the [toolsapi http protocol](http://toolsapi.local/toolsapi-http-protocol).
+The client is not yet 100% compliant to the [toolsapi http protocol](http://toolsapi.com/toolsapi-http-protocol).
 
 Implemented:
 
