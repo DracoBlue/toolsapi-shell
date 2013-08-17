@@ -21,15 +21,15 @@ Create a toolsapi.properties in either your `$HOME`-directory or as `/etc/toolsa
 
 ## Run toolsapi Without Installation
 
-Just prefix your toolsapi call with `curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash /dev/stdin `.
+Just prefix your toolsapi call with `curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s `.
 
 Example to call `dig github.com`
 
-    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash /dev/stdin dig github.com
+    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s dig github.com
 
 You can make this shorter, if you call once:
 
-    $ alias toolsapi='curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash /dev/stdin'
+    $ alias toolsapi='curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s'
     
 and afterwards:
 
