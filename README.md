@@ -11,23 +11,43 @@ This is the official bash client implementation of [toolsapi.com](http://toolsap
 * Default unix/linux tools: grep, cat, cut, tail and bash
 * curl command line tool
 
-## No-Installation installation
-
-    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi > toolsapi
-    $ chmod +x toolsapi
-
-## Installation Git Version
-
-Clone the repository and enter the directory
-
-    $ git clone git@github.com:DracoBlue/toolsapi-shell.git
-    $ cd toolsapi-shell
+## Credentials
 
 Create a toolsapi.properties in either your `$HOME`-directory or as `/etc/toolsapi.properties`
 
     url=http://toolsapi.com/
     user=tester
     password=password
+
+## Run toolsapi Without Installation
+
+Just prefix your toolsapi call with `curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s `.
+
+Example to call `dig github.com`
+
+    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s dig github.com
+
+You can make this shorter, if you call once:
+
+    $ alias toolsapi='curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s'
+    
+and afterwards:
+
+    $ toolsapi dig github.com
+
+## Run toolsapi with One-File-Installation
+
+    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi > toolsapi
+    $ chmod +x toolsapi
+    $ ./toolsapi 
+
+## Run it with Installation from Git
+
+Clone the repository and enter the directory
+
+    $ git clone git@github.com:DracoBlue/toolsapi-shell.git
+    $ cd toolsapi-shell
+    $ ./toolsapi 
 
 ## Run Tests
 
