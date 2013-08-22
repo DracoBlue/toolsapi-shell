@@ -67,7 +67,7 @@ then
     exit 1;
 fi
 
-FINAL_COMMAND="$CURL_COMMAND -H 'Accept: text/plain' --user ${USER_NAME}:${USER_PASSWORD} -X POST";
+FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: text/plain' --user ${USER_NAME}:${USER_PASSWORD} -X POST";
 
 POS="-1"
 
