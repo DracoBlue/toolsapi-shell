@@ -70,6 +70,8 @@ fi
 FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: text/plain' --user ${USER_NAME}:${USER_PASSWORD} -X POST";
 
 POS="-1"
+SUBFILEPOS="-1"
+SUBFILEPOS_ALT="-1"
 
 for ARG in "$@"
 do
@@ -79,7 +81,28 @@ do
     else
         if [ "toolsapi:inputfile=" == "${ARG:0:19}" ]
         then
-            FINAL_COMMAND="${FINAL_COMMAND} -F file${POS}=@${ARG:19}"
+            FINAL_COMMAND="${FINAL_COMMAND} -F file${POS}=@'${ARG:19}'"
+        elif [ "toolsapi:inputfolder=" == "${ARG:0:21}" ]
+        then
+            FOLDER_SUBFILES=""
+            FINAL_COMMAND_FILE=`mktemp -t -u`
+            FOLDER_SUBFILES_FILE=`mktemp -t -u`
+            LAST_SUBFILE_FILE=`mktemp -t -u`
+            echo -n "" > $FINAL_COMMAND_FILE
+            echo -n "" > $FOLDER_SUBFILES_FILE
+            find ${ARG:21} -mindepth 1 | while read line
+            do
+                SUBFILEPOS=`expr ${SUBFILEPOS} + 1`
+                let "SUBFILEPOS_ALT += 1"
+                echo " -F subfile${SUBFILEPOS}=@'${line}'" >> $FINAL_COMMAND_FILE
+                echo -n ",${SUBFILEPOS}" >> $FOLDER_SUBFILES_FILE
+                echo -n "${SUBFILEPOS}" > $LAST_SUBFILE_FILE
+            done
+            FINAL_COMMAND="${FINAL_COMMAND} `cat $FINAL_COMMAND_FILE` -F folder${POS}=`cat $FOLDER_SUBFILES_FILE | cut -f '2-' -d ','`"
+            SUBFILEPOS=`cat ${LAST_SUBFILE_FILE}`
+            rm $LAST_SUBFILE_FILE
+            rm $FOLDER_SUBFILES_FILE
+            rm $FINAL_COMMAND_FILE
         else
             FINAL_COMMAND="${FINAL_COMMAND} -F arg${POS}='${ARG}'"
         fi 
@@ -87,4 +110,7 @@ do
     POS=`expr ${POS} + 1`
 done
 
+#echo $FINAL_COMMAND
+#echo "SUBFILEPOS: $SUBFILEPOS"
+#echo "SUBFILEPOS: $SUBFILEPOS_ALT"
 eval $FINAL_COMMAND
