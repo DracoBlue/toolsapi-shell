@@ -86,7 +86,7 @@ do
             FOLDER_SUBFILES=""
             while read line
             do
-                SUBFILEPOS=`expr ${SUBFILEPOS} + 1`
+                let "SUBFILEPOS += 1"
                 FINAL_COMMAND="${FINAL_COMMAND} -F subfile${SUBFILEPOS}=@'${line}'"
                 if [ -z "$FOLDER_SUBFILES" ]
                 then
@@ -102,7 +102,7 @@ EOF
             FINAL_COMMAND="${FINAL_COMMAND} -F arg${POS}='${ARG}'"
         fi 
     fi
-    POS=`expr ${POS} + 1`
+    let "POS += 1"
 done
 
 #echo $FINAL_COMMAND
