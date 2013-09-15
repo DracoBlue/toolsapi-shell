@@ -1,0 +1,95 @@
+#!/bin/bash
+
+#
+# toolsapi shell client version 1.x-dev
+#
+# This work is copyright by DracoBlue (<http://dracoblue.net>) and not licensed under any license, yet.
+#
+
+COMMAND=$1
+CURL_COMMAND=curl
+GREP_COMMAND=grep
+CAT_COMMAND=cat
+CUT_COMMAND=cut
+TAIL_COMMAND=tail
+POSSIBLE_FILES="toolsapi.properties $HOME/toolsapi.properties /etc/toolsapi.properties"
+TOOLSAPI_COMMAND=`dirname $0`/toolsapi
+
+for possible_file in $POSSIBLE_FILES
+do
+    if [ -f $possible_file ]
+    then
+        POSSIBLE_URL=$($CAT_COMMAND $possible_file | $GREP_COMMAND 'url=' | $TAIL_COMMAND -n 1 | cut -f '2-' -d '=')
+        
+        if [ ! -z "$POSSIBLE_URL" ]
+        then
+            if [ -z "$URL" ]
+            then
+                URL=$POSSIBLE_URL
+            fi
+        fi
+
+        POSSIBLE_USER_NAME=$($CAT_COMMAND $possible_file | $GREP_COMMAND 'user=' | $TAIL_COMMAND -n 1 | cut -f '2-' -d '=')
+        
+        if [ ! -z "$POSSIBLE_USER_NAME" ]
+        then
+            if [ -z "$USER_NAME" ]
+            then
+                USER_NAME=$POSSIBLE_USER_NAME
+            fi
+        fi
+
+        POSSIBLE_USER_PASSWORD=$($CAT_COMMAND $possible_file | $GREP_COMMAND 'password=' | $TAIL_COMMAND -n 1 | cut -f '2-' -d '=')
+        if [ ! -z "$POSSIBLE_USER_PASSWORD" ]
+        then
+            if [ -z "$USER_PASSWORD" ]
+            then
+                USER_PASSWORD=$POSSIBLE_USER_PASSWORD
+            fi
+        fi
+    fi
+done
+
+if [ -z "$URL" ]
+then
+    echo "Cannot find url= in $POSSIBLE_FILES" >&2;
+    exit 1;
+fi
+
+if [ -z "$USER_NAME" ]
+then
+    echo "Cannot find user= in $POSSIBLE_FILES" >&2;
+    exit 1;
+fi
+
+if [ -z "$USER_PASSWORD" ]
+then
+    echo "Cannot find password= in $POSSIBLE_FILES" >&2;
+    exit 1;
+fi
+
+FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: application/x-sh' --user ${USER_NAME}:${USER_PASSWORD} -X GET";
+
+POS="-1"
+
+for ARG in "$@"
+do
+    if [ "$POS" == "-1" ]
+    then
+        FINAL_COMMAND="${FINAL_COMMAND} ${URL}templates/${ARG}"
+    else
+        if [ "$POS" != "-1" ]
+        then
+            export ARG${POS}=${ARG}
+        fi
+    fi
+
+    let "POS += 1"
+done
+
+while read line
+do
+    eval $line
+done<<EOF
+`eval $FINAL_COMMAND`
+EOF

@@ -62,7 +62,19 @@ Run dig from the remote machine (execute `dig github.com`):
 Use an input file (prefix with `toolsapi:inputfile=`) on the remote machine (execute `pygmentize -l bash tests/test_pygmentize`):
 
     ./toolsapi pygmentize -l bash toolsapi:inputfile=tests/test_pygmentize.sh
-    
+
+## Using templates
+
+There is also the possibility to run specific templates provided by the toolsapi server.
+
+For instance:
+
+    ./toolsapi-template ffprobe filename.mp4
+
+will query the server for ffprobe template and convert it into:
+
+    ./toolsapi ffprobe toolsapi:inputfile=filename.mp4
+
 ## Status Quo of toolsapi-shell
 
 The client is not yet 100% compliant to the [toolsapi http protocol](http://toolsapi.com/toolsapi-http-protocol).
