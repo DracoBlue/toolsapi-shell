@@ -89,7 +89,14 @@ done
 
 while read line
 do
+    if [ '$TOOLSAPI_COMMAND' != "${line:0:17}" ]
+    then
+        echo "$line"
+        exit 1
+    fi
+    
     eval $line
+    exit $?
 done<<EOF
 `eval $FINAL_COMMAND`
 EOF
