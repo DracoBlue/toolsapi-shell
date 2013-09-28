@@ -68,6 +68,14 @@ then
     exit 1;
 fi
 
+if [ -z "$@" ]
+then
+    FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: text/plain' --user ${USER_NAME}:${USER_PASSWORD} -X GET";
+    FINAL_COMMAND="${FINAL_COMMAND} ${URL}templates"
+    eval $FINAL_COMMAND
+    exit 0
+fi
+
 FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: application/x-sh' --user ${USER_NAME}:${USER_PASSWORD} -X GET";
 
 POS="-1"
