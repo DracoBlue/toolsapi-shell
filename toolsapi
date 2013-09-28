@@ -81,6 +81,7 @@ then
     TEMPLATE_NAME=${1/*:/}
     TOOL_NAME=${1/:*/}
     TOOLSAPI_COMMAND=$0
+#    echo "tool: $TOOLSAPI_COMMAND as $TOOL_NAME with $TEMPLATE_NAME"
 
     FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: application/x-sh' --user ${USER_NAME}:${USER_PASSWORD} -X GET";
     FINAL_COMMAND="${FINAL_COMMAND} ${URL}templates/${TOOL_NAME}-${TEMPLATE_NAME}"
@@ -88,20 +89,17 @@ then
     # remove the template parameter
     shift
 
-    while read line
-    do
-#        echo "the line $line"
-        if [ '$TOOLSAPI_COMMAND' != "${line:0:17}" ]
-        then
-            echo "$line"
-            exit 1
-        fi
+    # FIXME: should be converted into a HERE-document (if this is possible!
+    PARAMETERS_FILE=$(mktemp /tmp/draft.XXXX)
+    eval $FINAL_COMMAND > $PARAMETERS_FILE
+#    echo $PARAMETERS_FILE
+#    cat $PARAMETERS_FILE
+    . $PARAMETERS_FILE
+    rm $PARAMETERS_FILE
 
-        eval $line
-        exit $?
-    done<<EOF
-    `eval $FINAL_COMMAND`
-EOF
+#    echo "TOOLSAPI_PARAMETERS: $TOOLSAPI_PARAMETERS"
+else
+    TOOLSAPI_PARAMETERS="$@"
 fi
 
 FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: text/plain' --user ${USER_NAME}:${USER_PASSWORD} -X POST";
@@ -109,8 +107,9 @@ FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: text/plain' --user ${USER_NAME}:${U
 POS="-1"
 SUBFILEPOS="-1"
 
-for ARG in "$@"
+for ARG in $TOOLSAPI_PARAMETERS
 do
+#    echo "ARG $POS = $ARG"
     if [ "$POS" == "-1" ]
     then
         FINAL_COMMAND="${FINAL_COMMAND} ${URL}tool/${ARG}"
