@@ -80,29 +80,21 @@ FINAL_COMMAND="$CURL_COMMAND -sS -H 'Accept: application/x-sh' --user ${USER_NAM
 
 POS="-1"
 
-for ARG in "$@"
-do
-    if [ "$POS" == "-1" ]
-    then
-        FINAL_COMMAND="${FINAL_COMMAND} ${URL}templates/${ARG}"
-    else
-        if [ "$POS" != "-1" ]
-        then
-            export ARG${POS}=${ARG}
-        fi
-    fi
+FINAL_COMMAND="${FINAL_COMMAND} ${URL}templates/${1}"
 
-    let "POS += 1"
-done
+# remove the template parameter
+
+shift
 
 while read line
 do
+    echo "the line $line"
     if [ '$TOOLSAPI_COMMAND' != "${line:0:17}" ]
     then
         echo "$line"
         exit 1
     fi
-    
+
     eval $line
     exit $?
 done<<EOF
