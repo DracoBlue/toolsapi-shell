@@ -69,11 +69,13 @@ There is also the possibility to run specific templates provided by the toolsapi
 
 For instance:
 
-    ./toolsapi-template ffprobe filename.mp4
+    ./toolsapi ffprobe:simple filename.mp4
 
-will query the server for ffprobe template and convert it into:
+will query the server for ffprobe called simple template and convert it into:
 
     ./toolsapi ffprobe toolsapi:inputfile=filename.mp4
+
+A full list of templates can be retrieved, by running ./toolsapi without any parameters.
 
 ## Status Quo of toolsapi-shell
 
