@@ -85,10 +85,10 @@ Implemented:
 
 - arguments (arg0..n)
 - input files (file0..n -> must be prefixed with `toolsapi:inputfile=`)
+- input folders (folder0..n)
 
 Missing:
 
-- input folders (folder0..n)
 - output folders
 - output files
 - stdoutfile
@@ -98,6 +98,7 @@ Missing:
 ## Changelog
 
 - 1.x-dev
+  - added input folders
   - merged toolsapi-template into toolsapi-script #1
   - removed mktemp #2
   - initial version 
