@@ -71,7 +71,7 @@ For instance:
 
     ./toolsapi ffprobe:simple filename.mp4
 
-will query the server for ffprobe called simple template and convert it into:
+will query the server for a template of `ffprobe`, which is called `simple` and convert it into:
 
     ./toolsapi ffprobe toolsapi:inputfile=filename.mp4
 
@@ -98,6 +98,8 @@ Missing:
 ## Changelog
 
 - 1.x-dev
+  - merged toolsapi-template into toolsapi-script #1
+  - removed mktemp #2
   - initial version 
 
 ## License

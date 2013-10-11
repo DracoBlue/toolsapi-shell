@@ -89,13 +89,10 @@ then
     # remove the template parameter
     shift
 
-    # FIXME: should be converted into a HERE-document (if this is possible!
-    PARAMETERS_FILE=$(mktemp /tmp/draft.XXXX)
-    eval $FINAL_COMMAND > $PARAMETERS_FILE
-#    echo $PARAMETERS_FILE
-#    cat $PARAMETERS_FILE
-    . $PARAMETERS_FILE
-    rm $PARAMETERS_FILE
+    read -r -d '' PARAMETERS_CODE <<EOF
+    `eval "$FINAL_COMMAND"`
+EOF
+    eval "$PARAMETERS_CODE"
 
 #    echo "TOOLSAPI_PARAMETERS: $TOOLSAPI_PARAMETERS"
 else
