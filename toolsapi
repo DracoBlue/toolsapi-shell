@@ -128,7 +128,7 @@ do
                     FOLDER_SUBFILES="${FOLDER_SUBFILES},${SUBFILEPOS}"
                 fi
             done <<EOF
-            `find ${ARG:21} -mindepth 1`
+            `find ${ARG:21} -mindepth 1 -type file`
 EOF
             FINAL_COMMAND="${FINAL_COMMAND} -F folder${POS}=${FOLDER_SUBFILES}"
         else
