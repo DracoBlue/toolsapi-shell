@@ -21,15 +21,15 @@ Create a toolsapi.properties in either your `$HOME`-directory or as `/etc/toolsa
 
 ## Run toolsapi Without Installation
 
-Just prefix your toolsapi call with `curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s `.
+Just prefix your toolsapi call with `curl -sS https://raw.githubusercontent.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s `.
 
 Example to call `dig github.com`
 
-    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s dig github.com
+    $ curl -sS https://raw.githubusercontent.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s dig github.com
 
 You can make this shorter, if you call once:
 
-    $ alias toolsapi='curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s'
+    $ alias toolsapi='curl -sS https://raw.githubusercontent.com/DracoBlue/toolsapi-shell/master/toolsapi | bash -s'
     
 and afterwards:
 
@@ -37,7 +37,7 @@ and afterwards:
 
 ## Run toolsapi with One-File-Installation
 
-    $ curl -sS https://raw.github.com/DracoBlue/toolsapi-shell/master/toolsapi > toolsapi
+    $ curl -sS https://raw.githubusercontent.com/DracoBlue/toolsapi-shell/master/toolsapi > toolsapi
     $ chmod +x toolsapi
     $ ./toolsapi 
 
@@ -98,6 +98,7 @@ Missing:
 ## Changelog
 
 - 1.x-dev
+  - new raw.githubusercontent.com Link in alias and copy+paste one liner
   - added input folders
   - merged toolsapi-template into toolsapi-script #1
   - removed mktemp #2
